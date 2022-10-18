@@ -2,13 +2,17 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+# 제목 작성 (st -> streamlit 기능)
 st.title('Uber pickups in NYC')
 
+# URL에서 파일 불러오기
 DATE_COLUMN = 'date/time'
 DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
             'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
 
+# 데이터를 매번 새로고침할때마다 열면 오래 걸리니, cache에 저장해두고 그 파일을 불러오겠다.
 @st.cache
+# nrows: 10000개만 가져와라?
 def load_data(nrows):
     data = pd.read_csv(DATA_URL, nrows=nrows)
     lowercase = lambda x: str(x).lower()
@@ -20,15 +24,18 @@ data_load_state = st.text('Loading data...')
 data = load_data(10000)
 data_load_state.text("Done! (using st.cache)")
 
+# 체크가 돼있을 때만 raw data를 보여줘라
 if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(data)
 
+# subheader 표기
 st.subheader('Number of pickups by hour')
 hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
 st.bar_chart(hist_values)
 
 # Some number in the range 0-23
+# 시간대별로 구분해 볼 수 있다.
 hour_to_filter = st.slider('hour', 0, 23, 17)
 filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
 
