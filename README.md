@@ -14,12 +14,3 @@ Not anything particular
 # Practice
 * How to imbed images : use html method, upload images on Github
 * Let's practice one by one.
-
-## 不知道该写什么
-* 还会写中文呢
-* 아스타 자동으로 써지네
-* 该如何做其中project呢。。救命啊！
-
-## 今日的目标
-1. 复习这两日学过的内容 (最要紧!)
-2. 
